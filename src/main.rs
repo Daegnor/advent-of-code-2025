@@ -12,4 +12,5 @@ fn main() {
     // print!("\n");
 
     ex3::part1::run();
+    ex3::part2::run();
 }
