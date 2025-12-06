@@ -14,35 +14,30 @@ pub fn run() {
             .map(|c| c.to_digit(10).unwrap())
             .collect::<Vec<_>>();
 
-        let mut powered = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let mut power = 0;
         let mut start = 0;
 
         for i in 0..12 {
-            let mut start_tmp = start;
-            powered[i] = voltages[start];
-
-            print!("I {} START {}\n", i, start);
-
-            for (index, voltage) in voltages[start..(voltages.len() - 12 + i + 1)]
+            // Get max voltage in allowed range
+            let (_, voltage) = voltages[start..voltages.len() - 12 + i + 1]
                 .into_iter()
                 .enumerate()
-            {
-                if *voltage > powered[i] {
-                    powered[i] = *voltage;
-                    start_tmp = index + start;
-                }
-            }
-            start = start_tmp + 1;
+                .max_by_key(|(_, voltage)| **voltage)
+                .unwrap();
+
+            // Voltage into power (depending on position)
+            power += (*voltage as u64) * 10_u64.pow(12 - (i as u32) - 1);
+
+            // max_by_key returns last element, so find first element with value == voltage, add it to start for position in full voltages array, and add 1 for next iteration
+            start = voltages[start..]
+                .iter()
+                .position(|v| *v == *voltage)
+                .unwrap()
+                + start
+                + 1;
         }
 
-        print!("POWERED {:?}\n", powered);
-
-        total_power += powered
-            .iter()
-            .enumerate()
-            .map(|(index, voltage)| (*voltage as u64) * 10_u64.pow(12 - (index as u32) - 1))
-            .reduce(|a, b| a + b)
-            .unwrap();
+        total_power += power;
     }
 
     print!("EX 3 PART 2: {}\n", total_power);
