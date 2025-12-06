@@ -11,6 +11,6 @@ fn main() {
     // ex2::part2::run();
     // print!("\n");
 
-    ex3::part1::run();
-    ex3::part2::run();
+    ex3::part::run(2, 1);
+    ex3::part::run(12, 2);
 }
