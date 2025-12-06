@@ -1,6 +1,6 @@
 use std::fs;
 
-const MAX: i32 = 100;
+const MAX: f32 = 100.0;
 
 pub fn run() {
     let contents = fs::read_to_string("./src/ex1/rotations2.data")
@@ -8,8 +8,8 @@ pub fn run() {
 
 	let parts = contents.lines();
 
-	let mut current = 50;
-	let mut result = 0;
+	let mut current = 50.0;
+	let mut result = 0.0;
 
     for line in parts {
 		let next = rotate(current, line);
@@ -18,37 +18,36 @@ pub fn run() {
 
 		current = next.0;
 
-		if(current == 0) {
-			result += 1;
+		// Ends on 0
+		if current == 0.0 {
+			result += 1.0;
 		}
 	}
 
 	print!("EX 1 PART 2: {}\n", result);
 }
 
-fn rotate(current: i32, instruction: &str) -> (i32, i32) {
+fn rotate(current: f32, instruction: &str) -> (f32, f32) {
 	let direction = instruction.chars().nth(0).unwrap();
 	let value = instruction[1..].parse::<f32>().unwrap();
-	let maxF = MAX as f32;
 
-	let fullRotations = (value / maxF).floor() as i32;
-	let remaining = (value % maxF) as i32;
+	// Next value without adaptation to lock
+	let next_raw = if direction == 'L' { current - (value % MAX) } else { current + (value % MAX) };
 
-	let steps = if direction == 'L' { current - remaining } else { current + remaining };
-	let next = modulo(steps, MAX);
+	// Adapt to lock
+	let next = modulo(next_raw, MAX);
 
-	let mut pass = (value / maxF).floor() as i32;
+	// Full rotations
+	let mut pass = (value / MAX).floor();
 
-	if current > 0 && steps < 0 || steps > MAX {
-		pass += 1;
+	// Pass by 0
+	if current > 0.0 && next_raw < 0.0 || next_raw > MAX {
+		pass += 1.0;
 	}
-	
-	
-	print!("CURRENT {} INSTRUCTION {} NEXT {} PASS {}\n", current, instruction, next, pass);
 
-	(modulo(next, MAX), pass)
+	(next, pass)
 }
 
-fn modulo(a: i32, b: i32) -> i32 {
+fn modulo(a: f32, b: f32) -> f32 {
 	((a % b) + b) % b
 }
