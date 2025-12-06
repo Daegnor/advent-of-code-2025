@@ -1,8 +1,11 @@
 mod ex1;
-use ex1::{part1, part2};
+mod ex2;
 
 fn main() {
-    part1::run();
+    ex1::part1::run();
+    ex1::part2::run();
+    print!("\n");
 
-	part2::run();
+    ex2::part1::run();
+	ex2::part2::run();
 }
