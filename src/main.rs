@@ -7,5 +7,5 @@ fn main() {
     print!("\n");
 
     ex2::part1::run();
-	ex2::part2::run();
+    ex2::part2::run();
 }

@@ -32,19 +32,19 @@ fn is_valid(id: &str) -> bool {
         return true;
     }
 
-	let sizes = std::ops::Range {
-                start: 1,
-                end: (((id.len() as f32) / 2.0).ceil() + 1.0) as usize,
-            };
+    let sizes = std::ops::Range {
+        start: 1,
+        end: (((id.len() as f32) / 2.0).ceil() + 1.0) as usize,
+    };
 
-	for i in sizes {
-		let pattern = &id[..i];
-		let parts = split_size(id, i);
+    for i in sizes {
+        let pattern = &id[..i];
+        let parts = split_size(id, i);
 
-		if parts.into_iter().all(|part| *part.as_str() == *pattern) {
-			return false;
-		}
-	}
+        if parts.into_iter().all(|part| *part.as_str() == *pattern) {
+            return false;
+        }
+    }
 
     true
 }
