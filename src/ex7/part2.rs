@@ -9,7 +9,7 @@ pub fn run() {
 
     let lines = content.lines().collect::<Vec<_>>();
 
-    for (i, line) in lines.iter().enumerate() {
+    for line in lines {
         let chars: Vec<char> = line.chars().collect::<Vec<_>>();
 
         if beam_cols.is_empty() {
