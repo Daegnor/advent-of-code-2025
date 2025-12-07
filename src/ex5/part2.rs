@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fs};
+use std::{fs};
 
 #[derive(Clone, Copy)]
 struct FreshRange {
