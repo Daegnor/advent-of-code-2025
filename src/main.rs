@@ -2,6 +2,7 @@ mod ex1;
 mod ex2;
 mod ex3;
 mod ex4;
+mod ex5;
 
 fn main() {
     // ex1::part1::run();
@@ -18,4 +19,8 @@ fn main() {
 
     ex4::part1::run();
     ex4::part2::run();
+    print!("\n");
+
+    ex5::part1::run();
+    ex5::part2::run();
 }
