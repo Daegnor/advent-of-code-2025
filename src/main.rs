@@ -27,4 +27,5 @@ fn main() {
     print!("\n");
 
     ex6::part1::run();
+    ex6::part2::run();
 }
